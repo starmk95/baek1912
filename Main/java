@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int cnt = sc.nextInt();
+        int[] numbers = new int[cnt]; // 입력받은 수들을 기록
+        int[] sums = new int[cnt]; // 연속된 수의 합을 기록
+        for (int i=0;i<cnt;i++) {
+            numbers[i] = sc.nextInt();
+        }
+
+        // Bottom-Up 방식
+        // 점화식 : sums[i] = max(sums[i-1] + numbers[i], numbers[i])
+        sums[0] = numbers[0];
+        for (int i=1;i<cnt;i++) {
+            if (sums[i-1]+numbers[i] > numbers[i]) {
+                sums[i] = sums[i-1] + numbers[i];
+            } else {
+                sums[i] = numbers[i];
+            }
+        }
+        int max = sums[0];
+        for (int i=1;i<cnt;i++) {
+            if (max < sums[i]) max = sums[i];
+        }
+        System.out.println(max);
+    }
+}
